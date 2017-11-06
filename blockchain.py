@@ -320,9 +320,10 @@ def finish_predg():
     re=bc.finish_fake_block(user,block,lastproof)
     return str(re),200
 
+
 def one_hundred_mine(num,username):
-	for i in range(0,num):
-		localmine(username)
+    for i in range(0, num):
+        localmine(username)
 @app.route('/dg',methods=['GET'])
 def dg():
     '''
@@ -331,14 +332,15 @@ def dg():
     '''
     username=request.args.get('username')
     p=request.args.get('p')
+    num = 0
+    for i in range(0, 100):
+        if (float(p) > R.random()):
+            num += 1
 
-    num=0
-    for i in range(0,100):
-        if(float(p)>R.random()):
-            num+=1            
-    threads=threading.Timer(interval=20,function=one_hundred_mine,args=(num,username,))
+
+    threads=threading.Timer(interval=20, function=one_hundred_mine, args=(num,username,))
     threads.setDaemon(False)
-    threads.start()                  
+    threads.start()
     return str(num), 200
 '''
 begin=time()
@@ -365,7 +367,7 @@ if(__name__=='__main__'):
     #http_server = WSGIServer(('127.0.0.1', 5000), app)
     http_server = WSGIServer(('0.0.0.0', 80), app)
     http_server.serve_forever()
-    #app.run(host='0.0.0.0',port=80)
+    #app.run(host='0.0.0.0',port=5000)
 
 
 
